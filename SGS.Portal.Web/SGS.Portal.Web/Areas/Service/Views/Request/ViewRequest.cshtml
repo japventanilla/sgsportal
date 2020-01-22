@@ -1,0 +1,45 @@
+﻿@model IEnumerable<RequestViewModel>
+@{
+    ViewBag.Title = "View Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+                Search Request
+			</div>
+			<div class="panel-body">
+                <table id="myList" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Request No</th>
+                            <th>Request Type</th>
+                            <th>Requested By</th>
+                            <th>Status</th>
+                            <th>Date Requested</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (RequestViewModel item in Model)
+                            {
+                                <tr>
+                                    <td><a href="@Url.Content("~/Service/Request/" + item.RequestTypeCode + "?id="+item.RequestId)">@item.RequestNo</a></td>
+                                    <td>@item.RequestTypeDisplay</td>
+                                    <td>@item.RequestedBy</td>
+                                    <td>@item.Status</td>
+                                    <td>@(item.RequestedDate == null? "" : item.RequestedDate.Value.ToString("MM/dd/yyyy"))</td>
+                                </tr>
+                            }
+                        }                        
+                    </tbody>
+                </table>
+			</div>
+        </div>
+    </div>
+
+</div>

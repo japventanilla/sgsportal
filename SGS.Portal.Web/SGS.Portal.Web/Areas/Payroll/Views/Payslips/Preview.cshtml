@@ -1,0 +1,196 @@
+﻿@model List<SGS.Business.Objects.PayslipsObject>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Preview</title>
+    <style type="text/css">
+        @("@page") {
+            size: portrait;
+        }
+		body{
+			width: 100%;
+			height:auto;
+			padding:0;
+			margin:0;
+			color:#000;
+			font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+			-webkit-print-color-adjust: exact !important;
+		}
+		.payslip{
+			position:relative;
+			height:inherit;
+			border:1px dashed #ccc;
+			padding:10px 10px 70px 10px;
+			margin:20px;
+			width:1000px;
+            page-break-inside: avoid;
+		}
+		.payslip h1{
+		}
+		.payslip ul{
+			list-style-type: none;
+			padding:0;
+		}
+		.payslip ul li{
+			width:50%;
+			float:left;
+			position:relative;
+		}
+		.payslip ul li span{
+			font-weight:bold;
+			position:absolute;
+			right:20px;
+		}
+		.container{
+			height:inherit;
+			padding:0;
+			margin:0;
+		}
+		.container .row{
+			width:49%;
+			float:left;
+			position:relative;
+		}
+		.container h2{
+			background:#666;
+			padding:0 0 0 5px;
+			margin:20px 1px 1px 1px;
+			color:#fff;
+		}
+		.container h3{
+			width:100%;
+			padding:10px 0 0 20px;
+			margin:0px;
+		}
+		.container h3 span{
+			position:absolute;
+			right:0px;
+		}
+		.container h4{
+			width:100%;
+			padding:10px 0 0 0;
+			margin:0 0 0 10px;
+		}
+		.container h4 span{
+			position:absolute;
+			right:20px;
+		}
+		.container ul{
+			padding:0;
+			margin:0 0 0 10px;
+		}
+		.container ul li{
+			width:100%;
+			position:relative;
+			padding:5px 0;
+		}
+		.container ul li span{
+			font-weight:normal;
+			position:absolute;
+			right:20px;
+		}
+		.final{
+			border-top:1px solid #666;
+			margin-right:20px;
+			margin-top:10px;
+		}
+		.clear{
+			clear:both;
+		}
+    </style>
+</head>
+<body onload="window.print()">
+
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <div class="payslip">
+
+                <h1>PAYSLIP</h1>
+                <ul>
+                    <li>Employee Name:<span>@item.Employee.ToUpper()</span></li>
+                    <li>Payroll Period:<span>@ViewBag.CutOff</span></li>
+                    <li>Position:<span>@item.Position</span></li>
+                    <li>No. of days:<span>@item.NoOfDays</span></li>
+                </ul>
+
+                <div class="container">
+                    <div class="row">
+                        <h2>Earnings</h2>
+                        <ul>
+                            <li>Basic Pay <span>@String.Format("{0:n}", item.BasicPay)</span></li>
+                            <li>ECOLA <span>@String.Format("{0:n}", item.ECOLA)</span></li>
+                            <li>Night Differential <span>@String.Format("{0:n}", item.NightDiff)</span></li>
+                            <li>Overtime Pay <span>@String.Format("{0:n}", item.OTPay)</span></li>
+                            @if (item.Allowances > 0)
+                            {
+                                <li>Allowances <span>@String.Format("{0:n}", item.Allowances)</span></li>
+                            }
+                            @if (item.Adjustments > 0)
+                            {
+                                <li>Adjustments <span>@String.Format("{0:n}", item.Adjustments)</span></li>
+                            }
+                            <li>Holiday Pay <span>@String.Format("{0:n}", item.HolidayPay)</span></li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <h2>Deductions</h2>
+                        <ul>
+                            <li>Late <span>@String.Format("{0:n}", item.Late)</span></li>
+                            <li>Undertime <span>@String.Format("{0:n}", item.Undertime)</span></li>
+                            @if (item.SSS > 0)
+                            {
+                                <li>SSS<span>@String.Format("{0:n}", item.SSS)</span></li>
+                            }
+                            @if (item.PhilHealth > 0)
+                            {
+                                <li>Philhealth<span>@String.Format("{0:n}", item.PhilHealth)</span></li>
+                            }
+                            @if (item.Pagibig > 0)
+                            {
+                                <li>Pag-Ibig<span>@String.Format("{0:n}", item.Pagibig)</span></li>
+                            }
+                            @if (item.Adjustments < 0)
+                            {
+                                <li>Adjustments <span>@String.Format("{0:n}", item.Adjustments)</span></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="container">
+                    <div class="row">
+                        <h4>Gross Pay<span>@String.Format("{0:n}", item.GrossPay)</span></h4>
+                    </div>
+                    <div class="row">
+                        <h4>Total Deductions<span>@String.Format("{0:n}", item.TotalDeduction)</span></h4>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="container final">
+                    <div class="row">
+                        <h3>&nbsp;</h3>
+                    </div>
+                    <div class="row">
+                        <h3>Net Pay:<span>@String.Format("{0:n}", item.NetPay)</span></h3>
+                    </div>
+                </div>
+
+            </div>
+
+        }
+    }
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+﻿@model List<SGS.Business.Objects.PayslipObject>
+@{
+    Layout = null;
+    decimal _otherGross = 0;
+    decimal _otherDeduct = 0;
+    decimal _gross = 0;
+    decimal _deduct = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Preview</title>
+    <style type="text/css">
+        @("@page") {
+            size: portrait;
+        }
+		body{
+			width: 100%;
+			height:auto;
+			padding:0;
+			margin:0;
+			color:#000;
+			font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+			-webkit-print-color-adjust: exact !important;
+		}
+		.payslip{
+			position:relative;
+			height:inherit;
+			border:1px dashed #ccc;
+			padding:10px 10px 70px 10px;
+			margin:20px;
+			width:1000px;
+            page-break-inside: avoid;
+		}
+		.payslip h1{
+		}
+		.payslip ul{
+			list-style-type: none;
+			padding:0;
+		}
+		.payslip ul li{
+			width:50%;
+			float:left;
+			position:relative;
+		}
+        .payslip ul li small{
+			font-size:10px;
+            color:#666;
+		}
+		.payslip ul li span{
+			font-weight:bold;
+			position:absolute;
+			right:20px;
+		}
+		.container{
+			height:inherit;
+			padding:0;
+			margin:0;
+		}
+		.container .row{
+			width:49%;
+			float:left;
+			position:relative;
+		}
+		.container h2{
+			background:#666;
+			padding:0 0 0 5px;
+			margin:20px 1px 1px 1px;
+			color:#fff;
+		}
+		.container h3{
+			width:100%;
+			padding:10px 0 0 20px;
+			margin:0px;
+		}
+		.container h3 span{
+			position:absolute;
+			right:0px;
+		}
+		.container h4{
+			width:100%;
+			padding:10px 0 0 0;
+			margin:0 0 0 10px;
+		}
+		.container h4 span{
+			position:absolute;
+			right:20px;
+		}
+		.container ul{
+			padding:0;
+			margin:0 0 0 10px;
+		}
+		.container ul li{
+			width:100%;
+			position:relative;
+			padding:5px 0;
+		}
+		.container ul li span{
+			font-weight:normal;
+			position:absolute;
+			right:20px;
+		}
+		.final{
+			border-top:1px solid #666;
+			margin-right:20px;
+			margin-top:10px;
+		}
+		.clear{
+			clear:both;
+		}
+    </style>
+</head>
+<body onload="window.print()">
+
+    @if (Model != null)
+    {
+        //foreach (var item in Model.OrderBy(x=>x.EmpName))
+        //foreach (var item in Model)
+        foreach (var item in Model)
+        {
+            <div class="payslip">
+
+                <h1>PAYSLIP</h1>
+                <ul>
+                    <li>Employee Name:<span>@item.EmpName</span></li>
+                    <li>Payroll Period:<span>@ViewBag.Period</span></li>
+                </ul>
+
+                <div class="container">
+                    <div class="row">
+                        <h2>Earnings</h2>
+                        <ul>
+
+                            @if (item.BasicRate > 0)
+                            {
+                                <li>Basic <small>(Rate: @item.BasicRate.ToString("0.##") | Days: @item.BasicDays.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.BasicPay)</span></li>
+                            }
+                            else
+                            {
+                                <li>Basic <span>@String.Format("{0:n}", item.BasicPay)</span></li>
+                            }                            
+
+                            @if (item.ColaPay > 0)
+                            {
+                                <li>ECola <small>(Rate: @item.ColaRate.ToString("0.##") | Days: @item.ColaDays.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.ColaPay)</span></li>
+                            }
+
+                            <li>Overtime <small>(Rate: @item.OTRate.ToString("0.##") | Hours: @item.OTHours.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.OTPay)</span></li>
+
+                            @if (item.RDOTPay > 0)
+                            {
+                                <li>RestDay OT <small>(Rate: @item.RDOTRate.ToString("0.##") | Hours: @item.RDOTHours.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.RDOTPay)</span></li>
+                            }
+
+                            @if (item.RDOTExcessPay > 0)
+                            {
+                                <li>RDOT Excess <small>(Rate: @item.RDOTExcessRate.ToString("0.##") | Hours: @item.RDOTExcessHours.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.RDOTExcessPay)</span></li>
+                            }
+
+                            @if (item.NDPay > 0)
+                            {
+                                <li>Night Diff <small>(Rate: @item.NDRate.ToString("0.##") | Hours: @item.NDHours.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.NDPay)</span></li>
+                            }
+
+                            @if (item.LHPay > 0)
+                            {
+                                <li>Legal Holiday <small>(Rate: @item.LHRate.ToString("0.##") | Hours: @item.LHHours.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.LHPay)</span></li>
+                            }
+
+                            @if (item.LHExcessPay > 0)
+                            {
+                                <li>LH Excess <small>(Rate: @item.LHExcessRate.ToString("0.##") | Hours: @item.LHExcessHours.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.LHExcessPay)</span></li>
+                            }
+
+                            @if (item.SHPay > 0)
+                            {
+                                <li>Special Holiday <small>(Rate: @item.SHRate.ToString("0.##") | Hours: @item.SHHours.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.SHPay)</span></li>
+                            }
+
+                            @if (item.SHExcessPay > 0)
+                            {
+                                <li>SH Excess <small>(Rate: @item.SHExcessRate.ToString("0.##") | Hours: @item.SHExcessHours.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.SHExcessPay)</span></li>
+                            }
+
+                            @if (item.Allowance > 0)
+                            {
+                                _otherGross += item.Allowance;
+                                <li>Allowance <span>@String.Format("{0:n}", item.Allowance)</span></li>
+                            }
+
+                            @if (item.CashAdvance > 0)
+                            {
+                                _otherGross += item.CashAdvance;
+                                <li>Cash Advance <span>@String.Format("{0:n}", item.CashAdvance)</span></li>
+                            }
+
+                            @if (item.Adjustment > 0)
+                            {
+                                _otherGross += item.Adjustment;
+                                <li>Adjustments <span>@String.Format("{0:n}", item.Adjustment)</span></li>
+                            }
+
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <h2>Deductions</h2>
+                        <ul>
+                            <li>Late/Undertime <small>(Rate: @item.LateRate.ToString("0.##") | Minutes: @item.LatePerMin.ToString("0.##") )</small> <span>@String.Format("{0:n}", item.LateDeductions)</span></li>
+
+                            @if (item.SSS_EE > 0)
+                            {
+                                <li>SSS <span>@String.Format("{0:n}", item.SSS_EE)</span></li>
+                            }
+
+                            @if (item.PAGIBIG_EE > 0)
+                            {
+                                <li>PAGIBIG <span>@String.Format("{0:n}", item.PAGIBIG_EE)</span></li>
+                            }
+
+                            @if (item.PHILHEALTH_EE > 0)
+                            {
+                                <li>PHILHEALTH <span>@String.Format("{0:n}", item.PHILHEALTH_EE)</span></li>
+                            }
+
+                            @if (item.SSS_Loan > 0)
+                            {
+                                <li>SSS Loan <span>@String.Format("{0:n}", item.SSS_Loan)</span></li>
+                            }
+
+                            @if (item.PAGIBIG_Loan > 0)
+                            {
+                                <li>PAGIBIG Loan <span>@String.Format("{0:n}", item.PAGIBIG_Loan)</span></li>
+                            }
+
+                            @if (item.Adjustment < 0)
+                            {
+                                _otherDeduct += (item.Adjustment * -1);
+                                <li>Adjustment <span>@String.Format("{0:n}", (item.Adjustment * -1))</span></li>
+                            }
+
+                            @if (item.Allowance < 0)
+                            {
+                                _otherDeduct += (item.Allowance * -1);
+                                <li>Allowance <span>@String.Format("{0:n}", (item.Allowance * -1))</span></li>
+                            }
+
+                            @if (item.CashAdvance < 0)
+                            {
+                                _otherDeduct += (item.CashAdvance * -1);
+                                <li>CashAdvance <span>@String.Format("{0:n}", (item.CashAdvance * -1))</span></li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="container">
+                    <div class="row">
+                        @{ 
+                            _gross = item.BasicPay + item.ColaPay + item.OTPay + item.RDOTPay + item.RDOTExcessPay + item.NDPay + item.LHPay + item.LHExcessPay + item.SHPay + item.SHExcessPay + _otherGross;
+                        }                        
+                        <h4>Gross Pay<span>@String.Format("{0:n}", _gross)</span></h4>
+                    </div>
+                    <div class="row">
+                        @{ 
+                            _deduct = item.LateDeductions + item.SSS_EE + item.PAGIBIG_EE + item.PHILHEALTH_EE + item.SSS_Loan + item.PAGIBIG_Loan + _otherDeduct;
+                        }
+                        <h4>Total Deductions<span>@String.Format("{0:n}", _deduct)</span></h4>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="container final">
+                    <div class="row">
+                        <h3>&nbsp;</h3>
+                    </div>
+                    <div class="row">
+                        <h3>Net Pay:<span>@String.Format("{0:n}", _gross - _deduct)</span></h3>
+                    </div>
+                </div>
+
+            </div>
+
+             _otherGross = 0;
+             _otherDeduct = 0;
+             _gross = 0;
+             _deduct = 0;
+
+        }
+    }
+
+</body>
+</html>

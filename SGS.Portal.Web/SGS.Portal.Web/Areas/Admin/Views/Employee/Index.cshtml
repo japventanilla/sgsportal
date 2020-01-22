@@ -1,0 +1,54 @@
+﻿@model IEnumerable<EmployeeViewModel>
+@{
+    ViewBag.Title = "Manage Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+                Employee Search
+                <ul class="pull-right panel-settings panel-button-tab-right">
+				    <li class="">
+                        <a class="pull-right" href="@Url.Content("~/Admin/Employee/Record")" aria-expanded="false">                            
+					        <em class="fa fa-plus"></em>
+				        </a>
+                    </li>
+                </ul>
+			</div>
+			<div class="panel-body">
+                <table id="myList" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Full Name</th>
+                            <th>Employement Type</th>
+                            <th>Position</th>
+                            <th>Client</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (EmployeeViewModel item in Model)
+                            {
+                                <tr>
+                                    <td><a href="@Url.Content("~/Admin/Employee/Record?id="+item.UserId)">@item.EmployeeId</a></td>
+                                    <td>@item.FullName</td>
+                                    <td>@item.EmploymentType</td>
+                                    <td>@item.Position</td>
+                                    <td>@item.Client</td>
+                                    <td>@item.Status</td>
+                                </tr>
+                            }
+                        }                        
+                    </tbody>
+                </table>
+			</div>
+        </div>
+    </div>
+
+</div>

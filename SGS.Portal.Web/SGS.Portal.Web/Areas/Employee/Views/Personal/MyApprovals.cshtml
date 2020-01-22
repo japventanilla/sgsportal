@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ApprovalViewModel>
+@{
+    ViewBag.Title = "My Approvals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+                <table id="myList" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Type</th>
+                            <th>Submitted By</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (ApprovalViewModel item in Model)
+                            {
+                                <tr>
+                                    <td><a href="@Url.Content("~/Employee/Personal/Approval?id="+item.ApprovalId)">@item.TransactionNo</a></td>
+                                    <td>@item.ApprovalType</td>                                    
+                                    <td>@item.SubmittedBy</td>         
+                                    <td>@item.TransactionDateString</td>
+                                </tr>
+                            }
+                        } 
+                    </tbody>
+                </table>
+			</div>
+        </div>
+    </div>
+
+</div>
