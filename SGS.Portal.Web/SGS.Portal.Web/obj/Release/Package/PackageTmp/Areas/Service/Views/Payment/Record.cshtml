@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+	<div class="col-md-12">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+			    Reimbursement
+            </div>
+
+            <div class="panel-body">
+                
+                <div class="form-group col-md-12">
+					<label>Description</label>
+					<textarea class="form-control" id="message" name="message" placeholder="Please enter your message here..." rows="5" disabled></textarea>
+				</div>
+
+                <div class="form-group col-md-4">
+					<label>Amount</label>
+					<input class="form-control" placeholder="Placeholder" disabled>
+				</div>
+
+                <div class="col-md-12">
+                    <hr />
+                </div>
+
+                <div class="form-group col-md-4">
+					<label>Payment Type</label>
+					<select class="form-control">
+						<option>Check</option>
+						<option>Cash</option>
+					</select>
+				</div>
+
+                <div class="form-group col-md-4">
+					<label>Check No</label>
+					<input class="form-control" placeholder="Placeholder">
+				</div>
+
+                <div class="col-md-12">
+                    <hr />
+                </div>
+
+                <div class="col-md-12">
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

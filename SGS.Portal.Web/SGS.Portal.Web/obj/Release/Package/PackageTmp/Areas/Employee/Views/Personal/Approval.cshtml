@@ -1,0 +1,125 @@
+﻿@model ApprovalViewModel
+@{
+    ViewBag.Title = "Approval";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SGS.Portal.Web.Areas.Service.Models.RequestViewModel request = ViewBag.Request;
+}
+
+<div class="row">
+
+	<div class="col-md-12">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+			    Reimbursement
+            </div>
+
+            <div class="panel-body">
+                
+                <div class="form-group col-md-12">
+					<label>Description</label>
+					<textarea class="form-control" id="message" name="message" rows="5" disabled>@request.Description</textarea>
+				</div>
+
+                <div class="form-group col-md-4">
+					<label>Amount</label>
+					<input class="form-control" placeholder="Placeholder" disabled value="@request.Amount">
+				</div>
+
+                <div class="col-md-12">
+                    <hr />
+                </div>
+
+                <div class="col-md-12">
+                    <button id="btnReject" type="button" class="btn btn-default">Reject</button>
+                    <button id="btnApprove" type="button" class="btn btn-primary">Approve</button>                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="approvalModal">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left" id="approvalModalLabel">Approve</h4>
+                <button type="button" class="close pull-right">
+                    &times;
+                </button>
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.Hidden("approveReject")
+                <div class="col-md-12 forApprove" style="padding-top:20px;">
+				    <p>Are you sure want to approve this request?</p>
+			    </div>
+                <div class="col-md-12 forCancel" style="padding-top:20px;">
+				    <p>To reject the request, please write down your comment in the box below.</p>
+			    </div>
+                <div class="form-group col-md-12 forCancel">
+                        <textarea class="form-control" id="txtComment" name="message" placeholder="Please enter your comment here..." rows="5"></textarea>			
+			    </div>
+            }
+            <div class="col-md-12">
+                <hr />
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <button id="btnCancel" type="button" class="btn btn-default">Cancel</button>
+                    <button id="btnConfirm" type="submit" class="btn btn-primary">Okay</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section AdditionalScript{
+    
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnApprove').click(function () {
+                $('#commentError').hide();
+                $('#approvalModalLabel, #approveReject').val('Approve');
+                $('#approvalModal').show();
+                $('#txtComment').focus();
+                $('.forApprove').show();
+                $('.forCancel').hide();
+            });
+
+            $('#btnReject').click(function () {
+                $('#commentError').hide();
+                $('#approvalModalLabel, #approveReject').val('Reject');
+                $('#approvalModal').show();                
+                $('.forApprove').hide();
+                $('.forCancel').show();
+                $('#txtComment').val('');
+                $('#txtComment').focus();
+            });
+
+            $('.close,#btnCancel').click(function () {
+                $('#approvalModal').hide();
+            });
+
+            var errormsg = '<div id="commentError" class="alert bg-danger" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em><span>Comment field is required</span></div>'
+
+            $('#btnConfirm').click(function () {
+                var type = $('#approvalModalLabel').val();
+                var comment = $('#txtComment').val();
+
+                if (type == 'Reject' && comment.trim() == '') {
+                    $('.modal-header').after(errormsg);
+                    $('#txtComment').focus();
+                }
+            });
+
+        });
+
+    </script>
+
+}

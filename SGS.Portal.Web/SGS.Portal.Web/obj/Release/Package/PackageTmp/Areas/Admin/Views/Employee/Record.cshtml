@@ -1,0 +1,279 @@
+﻿@model EmployeeViewModel
+@{
+    ViewBag.Title = "Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+	<div class="col-md-12">
+
+        <div class="panel panel-default ">
+            @if (ViewBag.Success != null || ViewBag.Error != null || ViewBag.SysError != null)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (ViewBag.Success != null)
+                        {
+                            <div class="alert bg-success" role="alert">
+                                <em class="fa fa-lg fa-warning">
+                                    &nbsp;</em> Record Successfully Submitted!.
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert bg-danger" role="alert">
+                                 <em class="fa fa-lg fa-warning">&nbsp;</em>                                
+                                @if(string.IsNullOrEmpty(ViewBag.ErrMsg))
+                                {
+                                    <span>Sorry, but the record was not submitted! Please correct the following errors and submit the form again:</span><br /><br />
+                                    @Html.ValidationSummary(false)   
+                                }
+                                else
+                                {
+                                    <br /><br /><b>@ViewBag.ErrMsg</b>
+                                } 
+                            </div>
+                        }
+                    </div>
+                </div>
+            } 
+
+			<div class="panel-heading">@Model.EmployeeId</div>               
+
+			<div class="panel-body timeline-container">
+
+                @using (Html.BeginForm("Record", "Employee", new { area = "Admin" }, FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+                { 
+                    @Html.HiddenFor(m=>m.UserId)
+                    @Html.HiddenFor(m=>m.EmployeeId)                    
+
+				    <ul class="timeline">
+					    <li>
+						    <div class="timeline-badge primary"><i class="fa fa-user"></i></div>
+						    <div class="timeline-panel">
+							    <div class="timeline-heading">
+								    <h4 class="timeline-title">Personal Details</h4>
+							    </div>
+							    <div class="timeline-body">
+								
+                                    <div class="form-group col-md-4">
+									    <label>First Name *</label>
+                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Middle Name *</label>
+									    @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Last Name *</label>
+									    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Nick Name *</label>
+									    @Html.TextBoxFor(m => m.NickName, new { @class = "form-control" })
+								    </div>                     
+
+                                    <div class="form-group col-md-4">
+									    <label>Date Of Birth *</label>
+									    @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control datepicker", @Value=Model.DateOfBirthString })
+								    </div>
+                                
+                                    <div class="form-group col-md-4">
+									    <label>Place Of Birth *</label>
+									    @Html.TextBoxFor(m => m.PlaceOfBirth, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Gender *</label>
+									    <div class="radio">
+										    @Html.HiddenFor(m => m.Gender)
+                                            <label for="inline-radio1" class="form-check-label ">                            
+                                                <input type="radio" name="gender" class="form-check-input" onclick="$('#Gender').val('Male');"  @(Model.Gender == "Male"? "checked":"")>Male
+                                            </label>
+                                            &nbsp;
+                                            <label for="inline-radio2" class="form-check-label ">
+                                                <input type="radio" name="gender" class="form-check-input" onclick="$('#Gender').val('Female');"  @(Model.Gender == "Female"? "checked":"")>Female
+                                            </label>
+									    </div>
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Marital Status *</label>
+									    <div class="radio">
+										    @Html.HiddenFor(m => m.MaritalStatus)
+                                            <label for="inline-radio1" class="form-check-label ">                            
+                                                <input type="radio" name="mstatus" class="form-check-input" onclick="$('#MaritalStatus').val('Single');"  @(Model.MaritalStatus == "Single"? "checked":"")>Single
+                                            </label>
+                                            &nbsp;
+                                            <label for="inline-radio2" class="form-check-label ">
+                                                <input type="radio" name="mstatus" class="form-check-input" onclick="$('#MaritalStatus').val('Married');"  @(Model.MaritalStatus == "Married"? "checked":"")>Married
+                                            </label>
+									    </div>
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Nationality *</label>
+									    @Html.TextBoxFor(m => m.Nationality, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-12">
+									    <label>Present Address *</label>
+									    @Html.TextBoxFor(m => m.PresentAddress, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-12">
+									    <label>Provincial Address</label>
+									    @Html.TextBoxFor(m => m.ProvincialAddress, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <img src="@Model.PictureUrl" width="100%" height="auto" />
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                       <label>Picture</label>
+                                       <input type="file" id="file" accept="image/*" name="file" class="form-control" >
+                                    </div>                                    
+
+							    </div>
+						    </div>
+					    </li>
+					    <li>
+						    <div class="timeline-badge"><i class="fa fa-phone"></i></div>
+						    <div class="timeline-panel">
+
+							    <div class="timeline-heading">
+								    <h4 class="timeline-title">Contact Details</h4>
+							    </div>
+							    <div class="timeline-body">
+								
+                                    <div class="form-group col-md-4">
+									    <label>Mobile No *</label>
+									    @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control mobilePhone" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Landline No</label>
+									    @Html.TextBoxFor(m => m.LandLine, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Email</label>
+									    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+								    </div>
+							    </div>
+
+                                <div class="form-group col-md-12">
+                                    <hr />
+                                </div>
+
+                                <div class="timeline-heading">
+								    <h4 class="timeline-title">Emergency Contact</h4>
+							    </div>
+							    <div class="timeline-body">
+								
+                                    <div class="form-group col-md-4">
+									    <label>Name *</label>
+									    @Html.TextBoxFor(m => m.ReferenceName, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Relationship *</label>
+									    @Html.TextBoxFor(m => m.ReferenceRelationship, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Contact No *</label>
+									    @Html.TextBoxFor(m => m.ReferenceContactNo, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-12">
+									    <label>Address *</label>
+									    @Html.TextBoxFor(m => m.ReferenceAddress, new { @class = "form-control" })
+								    </div>
+							    </div>
+
+						    </div>
+					    </li>
+					    <li>
+						    <div class="timeline-badge"><i class="fa fa-briefcase"></i></div>
+						    <div class="timeline-panel">
+							    <div class="timeline-heading">
+								    <h4 class="timeline-title">Work Details</h4>
+							    </div>
+							    <div class="timeline-body">
+								
+                                    <div class="form-group col-md-4">
+									    <label>Employment Type *</label>
+									    @Html.DropDownListFor(m => m.EmploymentType, new SelectList((List<SelectListItem>)ViewBag.EmpTypes, "Value", "Text"), new { @class="form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Client *</label>
+									    @Html.DropDownListFor(m => m.Client, new SelectList((List<SelectListItem>)ViewBag.Clients, "Value", "Text"), new { @class="form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Status *</label>
+									     @Html.DropDownListFor(m => m.Status, new SelectList((List<SelectListItem>)ViewBag.EmpStatus, "Value", "Text"), new { @class="form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Position</label>
+									    @Html.TextBoxFor(m => m.Position, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Date Hired</label>
+									    @Html.TextBoxFor(m => m.DateHired, new { @class = "form-control datepicker", @Value=Model.DateHiredString })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>Tax ID</label>
+									    @Html.TextBoxFor(m => m.TaxIdNo, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>SSS Number</label>
+									    @Html.TextBoxFor(m => m.SSSNo, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>HDMF Number</label>
+									    @Html.TextBoxFor(m => m.HDMFNo, new { @class = "form-control" })
+								    </div>
+
+                                    <div class="form-group col-md-4">
+									    <label>PhilHealth Number</label>
+									    @Html.TextBoxFor(m=>m.PhilHealthNo, new { @class="form-control"})
+								    </div>
+
+							    </div>
+						    </div>
+					    </li>
+				    </ul>
+
+                    <hr />
+
+                    <div class="col-md-12">
+                        <div class="form-group col-md-3"></div>
+                        <div class="form-group col-md-3">
+                             <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+                        </div> 
+                        <div class="form-group col-md-3">
+                             <button type="reset" class="btn btn-lg btn-default btn-block">Reset</button>
+                        </div>   
+                        <div class="form-group col-md-3"></div>  
+                    </div>
+                }
+			</div>
+		    
+        </div>
+        
+	</div>
+</div>

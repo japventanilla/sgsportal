@@ -1,0 +1,86 @@
+﻿@model PayslipViewModel
+@{
+    ViewBag.Title = "Payslips";
+    //Layout = "~/Areas/Payroll/Views/Shared/_LayoutPayroll.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label>Client</label>
+                                @Html.DropDownList("SelectClient", new SelectList((List<SelectListItem>)ViewBag.SelectClients, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label>Cut-Off</label>
+                                <select id="SelectCutOff" class="form-control"></select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <button type="button" class="btn btn-primary" id="btnPayslip">Generate Payslips</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section AdditionalScript{
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            LoadCutOffFilter();
+
+            function LoadCutOffFilter() {
+
+                $.ajax({
+                    url: "@Url.Content("~/Payroll/Billing/GetCutOffs")?c=" + $('#SelectClient').val(), success: function (result) {
+                             var $select = $('#SelectCutOff'); 
+                             $select.find('option').remove(); 
+                             var listitems = '';
+                             $.each(JSON.parse(result), function (index, data) {
+
+                                 listitems += '<option value=' + data + '>' + data + '</option>';
+                             });
+                             $select.append(listitems);
+
+                         }
+                });
+
+            }
+
+            $('#SelectClient').on('change', function () {
+                LoadCutOffFilter();
+            });
+
+             $('#btnPayslip').click(function () {
+                 window.open(
+                     '@Url.Content("~/Payroll/Payslips/Preview")?co=' + $("#SelectCutOff option:selected").text() + '&c=' + $('#SelectClient').val(),
+                     '_blank'
+                 );
+             });
+
+         });
+
+    </script>
+
+}

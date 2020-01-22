@@ -1,0 +1,125 @@
+﻿@model List<SGS.Business.Objects.PayslipObject>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Preview</title>
+    <style type="text/css">
+        @("@page") { 
+            size: landscape;
+        }
+        body {
+            font-size:8px;
+            font-family:Arial;
+            position:relative;
+        }
+        table {
+            page-break-inside:auto;
+            page-break-inside:avoid; 
+            border: 1px dashed #ccc;
+            padding:10px;
+            float:left;
+            width:300px;
+        }
+        table td {
+           padding-right:20px;
+        }
+        table tr{
+            padding:110px;
+            page-break-inside:avoid; 
+            page-break-after:auto;
+        }
+        h1 {
+            font-weight:bold;
+            font-size:10px;
+        }
+        h2 {
+            font-weight:bold;
+            font-size:9px;
+            margin-bottom:0px;
+        }
+        .pull-right {
+            text-align:right;
+        }
+        .bold {
+            padding-top:3px;
+            font-weight:bold;
+            font-size:8px;
+        }
+    </style>
+</head>
+<body onload="window.print()">
+    
+    @if (Model != null)
+    {
+        foreach(var item in Model)
+        {
+            <table cellpadding="0" cellspacing="0">
+
+                <tr><td colspan="2"><h1>PAYSLIP</h1></td></tr>
+                <tr><td>PERIOD COVERED:</td><td>@ViewBag.Period</td></tr>
+                <tr><td>EMPLOYEE NAME:</td><td>@item.Employee.ToUpper()</td></tr>
+                <tr><td>POSITION:</td><td>@item.Position</td></tr>
+                <tr><td>NO. OF DAYS:</td><td>@item.NoOfDays</td></tr>
+
+                <tr><td colspan="2"><h2>EARNINGS</h2></td></tr>
+                <tr><td>Basic Pay</td><td class="pull-right">@String.Format("{0:n}", item.BasicPay)</td></tr>
+                <tr><td>ECOLA</td><td class="pull-right">@String.Format("{0:n}", item.ECOLA)</td></tr>
+                <tr><td>Night Differential</td><td class="pull-right">@String.Format("{0:n}", item.NightDiff)</td></tr>
+                <tr><td>Overtime Pay</td><td class="pull-right">@String.Format("{0:n}", item.OTPay)</td></tr>
+
+                @if (item.Allowances > 0)
+                {
+                    <tr><td>Allowances</td><td class="pull-right">@String.Format("{0:n}", item.Allowances)</td></tr>
+                }
+
+                @if (item.Adjustments > 0)
+                {
+                    <tr><td>Adjustments</td><td class="pull-right">@String.Format("{0:n}", item.Adjustments)</td></tr>
+                }
+
+                <tr><td>Holiday Pay</td><td class="pull-right">@String.Format("{0:n}", item.HolidayPay)</td></tr>
+                <tr><td class="bold">Gross Pay</td><td class="pull-right bold">@String.Format("{0:n}", item.GrossPay)</td></tr>
+
+                <tr><td colspan="2"><h2>DEDUCTIONS</h2></td></tr>
+                <tr><td>Late</td><td class="pull-right">@String.Format("{0:n}", item.Late)</td></tr>
+                <tr><td>Undertime</td><td class="pull-right">@String.Format("{0:n}", item.Undertime)</td></tr>
+
+                @if(item.SSS > 0){
+                    <tr><td>SSS Contribution</td><td class="pull-right">@String.Format("{0:n}", item.SSS)</td></tr>
+                }
+
+                @if (item.PhilHealth > 0)
+                {
+                    <tr><td>Philhealth Contribution</td><td class="pull-right">@String.Format("{0:n}", item.PhilHealth)</td></tr>
+                }
+
+                @if (item.Pagibig > 0)
+                {
+                    <tr><td>Pag-Ibig Contribution</td><td class="pull-right">@String.Format("{0:n}", item.Pagibig)</td></tr>
+                }
+                
+                @if (item.Uniform > 0)
+                {
+                    <tr><td>Uniform</td><td class="pull-right">@String.Format("{0:n}", item.Uniform)</td></tr>
+                }
+                @if (item.CashAdvance > 0)
+                {
+                    <tr><td>Cash Advance</td><td class="pull-right">@String.Format("{0:n}", item.CashAdvance)</td></tr>
+                }
+
+                <tr><td class="bold">Total Deductions</td><td class="pull-right bold">@String.Format("{0:n}", item.TotalDeduction)</td></tr>
+
+                <tr><td><h2>NET PAY</h2><td><h2 class="pull-right">@String.Format("{0:n}", item.NetPay)</h2></td></tr>
+
+            </table>
+        }
+    }
+
+</body>
+</html>

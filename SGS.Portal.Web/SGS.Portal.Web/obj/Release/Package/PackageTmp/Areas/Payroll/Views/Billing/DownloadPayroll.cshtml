@@ -1,0 +1,337 @@
+﻿@model List<SGS.Business.Objects.PayrollObject>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Download Payroll</title>
+    <style>
+        .export {
+            margin: 20px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+            .export a {
+                color: #1C6EA4;
+                text-decoration:underline;
+                cursor:pointer;
+            }
+            .export a:hover {
+                color: #33348e;
+            }
+    </style>
+</head>
+<body>
+    <div>
+        <table id="payrollTable" style="background-color: #EEEEEE; text-align: left; border-collapse: collapse; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:9pt">
+            <tr>
+                <td colspan="48"><b>@ViewBag.Client</b></td>
+            </tr>
+            <tr>
+                <td colspan="48">Payroll Computation</td>
+            </tr>
+            <tr>
+                <td colspan="48">For the period @ViewBag.CutOff</td>
+            </tr>
+            <tr>
+                <td colspan="48">&nbsp;</td>
+            </tr>
+
+            @if (Model != null && Model.First().HasBenefitsDeductions)
+            {
+                <tr style="color:#000;">
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;" colspan="44"></td>
+                    @if (Model != null && Model.First().HasBenefitsDeductions)
+                    {
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;" colspan="3">SSS</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;" colspan="3">PAGIBIG</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;" colspan="3">PHILHEALTH</td>
+                    }
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;" colspan="3"></td>
+                </tr>
+            }
+
+                <tr>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle; background:#000; color:#fff;" colspan="2">Employee</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Basic Rate</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Number of Days</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">Basic Pay</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Cola Rate</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Number of Days</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">Cola Pay</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Overtime Rate</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Number of Hours</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">Overtime Pay</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Rest Day Overtime Rate</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Number of Hours</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">Rest Day Overtime Pay</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Excess of 8 Hours (RD) Rate</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Number of Hours</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">Excess of 8 Hours (RD) Pay</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Night Differential Rate</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Number of Hours</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">Night Differential Pay</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Legal Holiday Rate (NOT WORKED)</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Number of Hours (NOT WORKED)</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">Legal Holiday Pay (NOT WORKED)</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Legal Holiday Rate</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Number of Hours</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">Legal Holiday Pay</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Excess of 8 Hours (Legal) Rate</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Number of Hours</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">Excess of 8 Hours (Legal) Pay</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Special Holiday Rate (NOT WORKED)</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Number of Hours (NOT WORKED)</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">Special Holiday Pay (NOT WORKED)</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Special Holiday Rate</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Number of Hours</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">Special Holiday Pay</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Excess of 8 Hours (Special) Rate</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Number of Hours</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">Excess of 8 Hours (Special) Pay</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">Adjustment</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">Allowance</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Late rate per min.</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C;">Number of Lates</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">LATE DEDUCTIONS</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#000; color:#fff;">TOTAL</td>
+
+                    @if (Model != null && Model.First().HasBenefitsDeductions)
+                    {
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px;">ER</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">EE</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px;">TOTAL</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px;">ER</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">EE</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px;">TOTAL</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px;">ER</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">EE</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px;">TOTAL</td>
+                    }
+                    else
+                    {
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">SSS LOAN</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#8CB5E5;">Pagibig Loan</td>
+                    }
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#01B0F1; font-weight:bold;">Gross Payroll</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#01B0F1; font-weight:bold;">Total Employee Deductions</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;width:90px; background:#01B0F1; font-weight:bold;">Net Amount</td>
+                </tr>
+
+            @if (Model != null)
+            {
+                int i = 1;
+                foreach (SGS.Business.Objects.PayrollObject item in Model)
+                {
+                <tr>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle;">@(i++)</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:center; vertical-align:middle; width:200px">@item.Employee</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.BasicRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.NumOfDays.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">@item.BasicPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.ColaRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.ColaDays.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">@item.ColaPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.OvertimeRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.OvertimeHours.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">@item.OvertimePay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.RDOTRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.RDOTHours.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">@item.RDOTPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.ExcessRDOTRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.ExcessRDOTHours.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">@item.ExcessRDOTPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.NightDiffRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.NightDiffHours.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">@item.NightDiffPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.LegalHolidayNotWorkedRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.LegalHolidayNotWorkedHours.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">@item.LegalHolidayNotWorkedPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.LegalHolidayRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.LegalHolidayHours.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">@item.LegalHolidayPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.ExcessLegalHolidayRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.ExcessLegalHolidayHours.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">@item.ExcessLegalHolidayPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.SpecialHolidayNotWorkedRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.SpecialHolidayNotWorkedHours.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">@item.SpecialHolidayNotWorkedPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.SpecialHolidayRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.SpecialHolidayHours.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">@item.SpecialHolidayPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.ExcessSpecialHolidayRate.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.ExcessSpecialHolidayHours.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">@item.ExcessSpecialHolidayPay.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">@item.Adjustment.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5; font-weight:bold;">@item.Allowance.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.LateRatePerMin.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C;">@item.NumOfLates.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#C9DB9C; font-weight:bold;">@item.LateDeduction.ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;">@item.Total.ToString("N2")</td>
+
+                    @if (item.HasBenefitsDeductions)
+                    {
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;">@item.SSSER.ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.SSSEE.ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;">@item.SSSTotal.ToString("N2")</td>
+
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;">@item.PagibigER.ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.PagibigEE.ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;">@item.PagibigTotal.ToString("N2")</td>
+
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;">@item.PhilHealthER.ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.PhilHealthEE.ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;">@item.PhilHealthTotal.ToString("N2")</td>
+                    }
+                    else
+                    {
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.SSSLoan.ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#8CB5E5;">@item.PagibigLoan.ToString("N2")</td>
+                    }
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#01B0F1; font-weight:bold;">@item.Total.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#01B0F1; font-weight:bold;">@item.TotalDeduction.ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; background:#01B0F1; font-weight:bold;">@item.NetPay.ToString("N2")</td>
+                </tr>
+                }
+
+                <tr>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;" colspan="3"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.NumOfDays).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.BasicPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.ColaDays).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.ColaPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.OvertimeHours).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.OvertimePay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.RDOTHours).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.RDOTPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.ExcessRDOTHours).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.ExcessRDOTPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.NightDiffHours).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.NightDiffPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.LegalHolidayNotWorkedHours).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.LegalHolidayNotWorkedPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.LegalHolidayHours).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.LegalHolidayPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.ExcessLegalHolidayHours).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.ExcessLegalHolidayPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.SpecialHolidayNotWorkedHours).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.SpecialHolidayNotWorkedPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.SpecialHolidayHours).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.SpecialHolidayPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.ExcessSpecialHolidayHours).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.ExcessSpecialHolidayPay).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.Adjustment).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.Allowance).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;"></td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.NumOfLates).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.LateDeduction).ToString("N2")</td>
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.Total).ToString("N2")</td>
+
+                    @if (@Model.First().HasBenefitsDeductions)
+                    {
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.SSSER).ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.SSSEE).ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.SSSTotal).ToString("N2")</td>
+
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.PagibigER).ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.PagibigEE).ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.PagibigTotal).ToString("N2")</td>
+
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.PhilHealthER).ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.PhilHealthEE).ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.PhilHealthTotal).ToString("N2")</td>
+
+                    }
+                    else
+                    {
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.SSSLoan).ToString("N2")</td>
+                        <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.PagibigLoan).ToString("N2")</td>
+                    }
+
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.Total).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.TotalDeduction).ToString("N2")</td>
+                    <td style="border: 1px solid #000;padding: 3px 2px;text-align:right; vertical-align:middle;width:90px; font-weight:bold;">@Model.Sum(x => x.NetPay).ToString("N2")</td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+    <div class="export">
+        <a id="downloadLink" onclick="exportF(this)">Export to Excel</a>
+    </div>
+
+    <script type="text/javascript">
+
+        function exportF(elem) {
+            var table = document.getElementById("payrollTable");
+            var html = table.outerHTML;
+            var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+            elem.setAttribute("href", url);
+            elem.setAttribute("download", "@(ViewBag.Client)_payroll_export.xls"); // Choose the file name
+            return false;
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Billing";
+    //Layout = "~/Areas/Payroll/Views/Shared/_LayoutPayroll.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label>Client</label>
+                                @Html.DropDownList("SelectClient", new SelectList((List<SelectListItem>)ViewBag.SelectClients, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label>Cut-Off</label>
+                                <select id="SelectCutOff" class="form-control"></select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <hr />
+                    <div class="col-md-12 billingButtons">
+                        <button type="button" class="btn btn-primary btn-block" id="btnPayroll">Payroll</button>
+                        <button type="button" class="btn btn-primary btn-block" id="btnBilling">Billing</button>
+                        <button type="button" class="btn btn-primary btn-block" id="btnInvoice">Invoice</button>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section AdditionalScript{
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            Initialize();
+
+            LoadCutOffFilter();
+
+            function LoadCutOffFilter() {
+
+                $.ajax({
+                    url: "@Url.Content("~/Payroll/Billing/GetCutOffs")?c=" + $('#SelectClient').val(), success: function (result) {
+                             var $select = $('#SelectCutOff'); 
+                             $select.find('option').remove(); 
+                             var listitems = '';
+                             $.each(JSON.parse(result), function (index, data) {
+
+                                 listitems += '<option value=' + data + '>' + data + '</option>';
+                             });
+                             $select.append(listitems);
+
+                         }
+                });
+
+            }
+
+            $('#SelectClient').on('change', function () {
+                LoadCutOffFilter();
+            });
+
+            $('#btnPayroll').click(function () {
+                window.open(
+                    '@Url.Content("~/Payroll/Billing/DownloadPayroll")?co=' + $("#SelectCutOff option:selected").text() + '&c=' + $('#SelectClient').val(),
+                    '_blank'
+                );
+            });
+
+            $('#btnBilling').click(function () {
+                window.open(
+                    '@Url.Content("~/Payroll/Billing/DownloadBilling")?co=' + $("#SelectCutOff option:selected").text() + '&c=' + $('#SelectClient').val(),
+                    '_blank'
+                );
+            });
+
+            $('#btnInvoice').click(function () {
+                window.open(
+                    '@Url.Content("~/Payroll/Billing/DownloadInvoice")?co=' + $("#SelectCutOff option:selected").text() + '&c=' + $('#SelectClient').val(),
+                    '_blank'
+                );
+            });
+
+            $(window).resize(function () {
+                Initialize();
+            });
+
+            function Initialize() {
+
+                windowsize = $(window).width();
+                if (windowsize > 768) {
+                    $('.billingButtons button').removeClass('btn-block');
+                }
+                else {
+                    $('.billingButtons button').addClass('btn-block');
+                }
+
+            }
+
+        });
+
+    </script>
+
+}

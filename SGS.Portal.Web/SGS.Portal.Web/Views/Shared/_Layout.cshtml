@@ -1,0 +1,257 @@
+﻿
+@{ 
+    if (UserHelper.CurrentUser == null)
+    {
+        Response.Redirect("/Account/Login");
+    }
+    else
+    {
+        ViewBag.NickName = UserHelper.CurrentUser.NickName;
+    }
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SGS Portal | @ViewBag.Title</title>
+	@Styles.Render("~/bundles/css")
+	
+	<!--Custom Font-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><span>Sustain</span> General Services</a>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info hide" data-toggle="dropdown" href="#">
+                            <em class="fa fa-bell"></em><!--span class="label label-info">3</span-->
+                        </a>
+                        <!--ul class="dropdown-menu dropdown-alerts">
+                            <li><a href="#">
+                                <div><em class="fa fa-envelope"></em> 1 New Message</div>
+                            </a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">
+                                <div><em class="fa fa-envelope"></em> 1 New Message</div>
+                            </a></li>
+                        </ul-->
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <em class="fa fa-cog"></em>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="@Url.Content("~/Account/ChangePassword")"><div><em class="fa fa-lock"></em> Change Password</div></a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="@Url.Content("~/Account/Logout")"><div><em class="fa fa-power-off"></em> Log-out</div></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+        <div class="profile-sidebar">
+            <div class="profile-userpic">
+                <img src="@Url.Content("~/App_Themes/images/logo.jpg")" class="img-responsive" alt="">
+            </div>
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">@ViewBag.NickName</div>
+                <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="divider"></div>
+        <!--form role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+        </form-->
+        <ul class="nav menu">
+            <li class="active" id="menuHome"><a href="/"><em class="fa fa-dashboard">&nbsp;</em> Home</a></li>
+            <li class="parent" loc="/Personal/">
+                <a data-toggle="collapse" href="#sub-personal">
+                    <em class="fa fa-user">&nbsp;</em> Personal <span data-toggle="collapse" href="#sub-personal" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                </a>
+                <ul class="children collapse" id="sub-personal">
+                    <li>
+                        <a class="" href="@Url.Content("~/Employee/Personal/MyProfile")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> My Profile
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a class="" href="@Url.Content("~/Employee/Personal/MyApprovals")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> My Approvals
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent hide" loc="/Service/Request/">
+                <a data-toggle="collapse" href="#sub-request">
+                    <em class="fa fa-laptop">&nbsp;</em> Request <span data-toggle="collapse" href="#sub-request" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                </a>
+                <ul class="children collapse" id="sub-request">
+                    <li>
+                        <a class="" href="@Url.Content("~/Service/Request/Create")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> Create Request
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="@Url.Content("~/Service/Request/ParkedItems")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> Parked Items
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="@Url.Content("~/Service/Request/ViewRequest")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> View Request
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent hide" loc="/Service/Payment/">
+                <a data-toggle="collapse" href="#sub-payment">
+                    <em class="fa fa-money">&nbsp;</em> Payment <span data-toggle="collapse" href="#sub-payment" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                </a>
+                <ul class="children collapse" id="sub-payment">
+                    <li>
+                        <a class="" href="@Url.Content("~/Service/Payment/ForPayment")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> For Payments
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="@Url.Content("~/Service/Payment")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> View Payments
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent" loc="/Payroll/">
+                <a data-toggle="collapse" href="#sub-payroll">
+                    <em class="fa fa-money">&nbsp;</em> Payroll <span data-toggle="collapse" href="#sub-payroll" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                </a>
+                <ul class="children collapse" id="sub-payroll">
+                    <li>
+                        <a class="" href="@Url.Content("~/Payroll/Timesheet")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> Time Sheets
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="@Url.Content("~/Payroll/Billing")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> Billing
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="@Url.Content("~/Payroll/Payslips")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> Payslips
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="parent" loc="/Admin/">
+                <a data-toggle="collapse" href="#sub-admin">
+                    <em class="fa fa-gear">&nbsp;</em> Admin <span data-toggle="collapse" href="#sub-admin" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                </a>
+                <ul class="children collapse" id="sub-admin">
+                    <li>
+                        <a class="" href="@Url.Content("~/Admin/Employee")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> Employee
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="@Url.Content("~/Admin/Clients")">
+                            <span class="fa fa-arrow-right">&nbsp;</span> Clients
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div><!--/.sidebar-->
+
+
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+        <div class="row">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/">
+                        <em class="fa fa-home"></em>
+                    </a>
+                </li>
+                <li class="active">@ViewBag.Title</li>
+            </ol>
+        </div><!--/.row-->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">@ViewBag.Title</h1>
+            </div>
+        </div><!--/.row-->
+        @RenderBody()
+    </div>	<!--/.main-->
+
+    @Scripts.Render("~/bundles/js")
+
+    <script type="text/javascript">
+
+        jQuery(document).ready(function () {
+
+            //var pathname = window.location.pathname;
+            //$('ul.nav li').attr('class', '');
+           // $('a[href="' + pathname + '"]').closest("li").attr('class', 'active');
+
+            var pathname = window.location.pathname;
+            $('li.active').removeClass('active');
+            $(".sidebar span.icon").find('em:first').addClass("fa-plus");
+
+            if (pathname == "/" || pathname == "/Home") {
+                $('#menuHome').addClass('active');
+            }
+            else {
+                $("ul.nav li").each(function (index) {
+                    var loc = $(this).attr('loc');
+                    if (loc != undefined) {                        
+                        if (pathname.indexOf(loc) != -1) {
+                            
+                            $(this).find("a").attr('aria-expanded', 'true');
+                            $(this).find("ul").attr('aria-expanded', 'true');
+                            $(this).find('ul').addClass('in');
+                            $(this).find('em').toggleClass("fa-minus");
+                            $(this).find('ul li a[href="' + pathname + '"]').addClass('active');                            
+                        }
+                        else {
+                            $(this).find("a").removeAttr('aria-expanded');
+                            $(this).find("ul").removeAttr('aria-expanded');
+                            $(this).find("ul").removeClass('in');
+                        }
+                    }                    
+                });
+            }
+
+            
+        });
+
+    </script>
+
+    @RenderSection("AdditionalScript", required: false)
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Portal.Web\SGS.Console\bin\Debug\SGS.Console.exe.config
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Portal.Web\SGS.Console\bin\Debug\SGS.Console.exe
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Portal.Web\SGS.Console\bin\Debug\SGS.Console.pdb
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Portal.Web\SGS.Console\obj\Debug\SGS.Console.csprojAssemblyReference.cache
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Portal.Web\SGS.Console\obj\Debug\SGS.Console.csproj.CoreCompileInputs.cache
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Portal.Web\SGS.Console\obj\Debug\SGS.Console.exe
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Portal.Web\SGS.Console\obj\Debug\SGS.Console.pdb

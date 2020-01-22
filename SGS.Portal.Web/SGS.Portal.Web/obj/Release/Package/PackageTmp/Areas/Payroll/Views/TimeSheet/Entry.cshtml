@@ -1,0 +1,258 @@
+﻿@model TimeSheetViewModel
+@{
+    ViewBag.Title = "Time Sheet - Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label>Client</label>
+                @Html.DropDownList("SelectClient", new SelectList((List<SelectListItem>)ViewBag.SelectClients, "Value", "Text"), new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label>Cut-Off</label>
+                <select id="SelectCutOff" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label>Employee</label>
+                <select id="SelectEmployee" class="form-control"></select>
+            </div>
+        </div>
+
+    </div>
+
+    @using (Html.BeginForm("Entry", "TimeSheet", new { area = "Payroll" }))
+    {
+
+        <div class="col-md-12">
+
+            <div class="panel panel-default ">
+
+                <div class="panel-body">
+
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="col-md-12 hide" id="SaveContainer">
+            <div class="form-group col-md-3"></div>
+            <div class="form-group col-md-3">
+                <button id="btnSave" type="button" class="btn btn-lg btn-primary btn-block">Save</button>
+            </div>
+            <div class="form-group col-md-3">
+                <button type="reset" class="btn btn-lg btn-default btn-block">Reset</button>
+            </div>
+            <div class="form-group col-md-3"></div>
+        </div>
+    }
+
+</div>
+
+@section AdditionalScript{
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            Initialize();   
+
+            $('.panel-body').html($('template').html());
+
+            $("#btnSave").click(function () {
+                if ($("#testtime").val() == "") {
+                    alert('error');
+                }
+                else {
+                    $('form').submit();
+                }
+            });
+
+            $('.tsCheck').on("click",function () {
+
+                if ($(this).is(":checked")) {
+                    $(this).parent().parent().parent().find('input').attr('disabled', 'disabled');
+                    $(this).removeAttr('disabled');
+                }
+                else {
+                    $(this).parent().parent().parent().find('input').removeAttr('disabled');
+                }
+
+            });
+
+            function Initialize() {
+
+                $.mask.definitions['H'] = "[0-1]";
+                $.mask.definitions['h'] = "[0-9]";
+                $.mask.definitions['M'] = "[0-5]";
+                $.mask.definitions['m'] = "[0-9]";
+                $.mask.definitions['P'] = "[AaPp]";
+                $.mask.definitions['p'] = "[Mm]";
+
+                $(".timepicker").mask("Hh:Mm Pp");
+
+                LoadCutOffFilter();
+                LoadEmployees();  
+                
+            }
+
+            function LoadDataEntry() {
+
+                var co = $("#SelectCutOff option:selected").text();                
+                var start = new Date(co.split('-')[0]);
+                var end = new Date(co.split('-')[1]);
+                var $panelBody = $('.panel-body');
+                $panelBody.html('');
+
+                var loop = new Date(start);
+                while (loop <= end) {
+
+                    var template = $('template').html();
+                    template = template.replace("{DATE}", loop.toLocaleDateString());
+
+                    $panelBody.append(template); 
+
+                    var newDate = loop.setDate(loop.getDate() + 1);
+                    loop = new Date(newDate);
+                }
+            }
+
+            function LoadCutOffFilter() {
+
+                $.ajax({
+                    url: "@Url.Content("~/Payroll/Billing/GetCutOffs")?c=" + $('#SelectClient').val(),
+                    success: function (result) {
+                             var $select = $('#SelectCutOff');
+                             $select.find('option').remove();
+                             var listitems = '';
+                             $.each(JSON.parse(result), function (index, data) {
+                                 listitems += '<option value=' + data + '>' + data + '</option>';
+                             });
+                             $select.append(listitems); 
+                             LoadDataEntry();
+                         }
+                });
+
+            }
+
+            function LoadEmployees() {
+
+                $.ajax({
+                    url: "@Url.Content("~/Admin/Employee/GetEmployeesByClient")?c=" + $('#SelectClient').val(), success: function (result) {
+                             var $select = $('#SelectEmployee');
+                             $select.find('option').remove();
+                             var listitems = '';
+                             $.each(JSON.parse(result), function (index, data) {
+
+                                 listitems += '<option value=' + data.Value + '>' + data.Text + '</option>';
+                             });
+                             $select.append(listitems);
+
+                         }
+                });
+
+            }
+
+            $('#SelectClient').on('change', function () {
+                LoadCutOffFilter();
+                LoadEmployees();
+            });
+
+            $('#SelectCutOff').on('change', function () {
+                LoadDataEntry();
+            });
+
+             $('#btnPayslip').click(function () {
+                 window.open(
+                     '@Url.Content("~/Payroll/Payslips/Preview")?co=' + $("#SelectCutOff option:selected").text() + '&c=' + $('#SelectClient').val(),
+                     '_blank'
+                 );
+             });
+
+         });
+
+    </script>
+
+    <template>
+        <div class="col-md-2">
+
+            <div class="panel-heading text-center">{DATE}</div>
+
+            <div class="form-group checkbox">
+                <label>
+                    <input class="tsCheck" type="checkbox">RestDay / Leave / Absence
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Time In</label>
+                <input name="testtime" class="form-control timepicker" placeholder="08:00 AM">
+            </div>
+            <div class="form-group">
+                <label>Time Out</label>
+                <input class="form-control timepicker" placeholder="05:00 PM">
+            </div>
+            <div class="form-group">
+                <label>Regular Hours</label>
+                <input class="form-control number" value="0">
+            </div>
+            <div class="form-group">
+                <label>Late (minutes)</label>
+                <input class="form-control number" value="0">
+            </div>
+            <div class="form-group">
+                <label>Authorized OT</label>
+                <input class="form-control number" value="0">
+            </div>
+            <div class="form-group">
+                <label>Legal Holiday OT</label>
+                <input class="form-control number" value="0">
+            </div>
+            <div class="form-group">
+                <label>Legal Holiday OT Excess</label>
+                <input class="form-control number" value="0">
+            </div>
+            <div class="form-group">
+                <label>Special Holiday OT</label>
+                <input class="form-control number" value="0">
+            </div>
+            <div class="form-group">
+                <label>Special Holiday OT Excess</label>
+                <input class="form-control number" value="0">
+            </div>
+            <div class="form-group">
+                <label>Rest Day OT</label>
+                <input class="form-control number" value="0">
+            </div>
+            <div class="form-group">
+                <label>Rest Day OT Excess</label>
+                <input class="form-control number" value="0">
+            </div>
+            <div class="form-group">
+                <label>Night Diff</label>
+                <input class="form-control number" value="0">
+            </div>
+
+        </div>
+    </template>
+    
+
+}

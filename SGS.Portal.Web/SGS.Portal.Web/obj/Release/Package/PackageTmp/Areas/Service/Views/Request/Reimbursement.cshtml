@@ -1,0 +1,150 @@
+﻿@model RequestViewModel
+@{
+    ViewBag.Title = "Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool editable = (Model.RequestId == 0 || Model.Status == SGS.Business.Objects.RequestStatusEnum.Parked.ToString());
+}
+
+<div class="row">
+
+	<div class="col-md-12">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+			    Reimbursement
+            </div>
+
+            <div class="panel-body">
+                
+                 @if (Model != null)
+                 {
+                     using (Html.BeginForm())
+                     {
+                         @Html.HiddenFor(m=>m.RequestId)
+                         
+                         <div class="form-group col-md-12">
+					        <label>Description</label>
+                             @if(editable)
+                             {
+                                 @Html.TextAreaFor(m => m.Description, new { @placeholder = "Please enter your description here...", @rows = "5", @class = "form-control" }) 
+                             }
+                             else
+                             {
+                                 @Html.TextAreaFor(m => m.Description, new { @placeholder = "Please enter your description here...", @rows = "5", @class = "form-control", @disabled="" })  
+                             }
+				        </div>
+
+                        <div class="form-group col-md-4">
+					        <label>Amount</label>					        
+                            @if(editable)
+                             {
+                                 @Html.TextBoxFor(m=>m.Amount, new {@class="form-control", @placeholder="Placeholder", @Value=String.Format("{0:n}", Model.Amount)})
+                             }
+                             else
+                             {
+                                 @Html.TextBoxFor(m=>m.Amount, new {@class="form-control", @placeholder="Placeholder", @Value=String.Format("{0:n}", Model.Amount), @disabled=""}) 
+                             }
+				        </div>
+                     
+                        if (Model.RequestId > 0)
+                        {
+                            <div class="form-group col-md-4">
+					            <label>Status</label>
+					            <h5>@Model.Status</h5>
+				            </div>
+                        }         
+                        
+                        @Html.HiddenFor(m=>m.SubmitType)  
+                     
+                        
+                     
+                         if (editable)
+                         {
+                            <div class="col-md-12"><hr /></div>                                                            
+                            <div class="col-md-12">
+                                <div class="form-group col-md-1"></div>
+                                 <div class="form-group col-md-3">
+                                     <a type="button" class="btn btn-lg btn-default btn-block" href="@Url.Content("~/Service/Request/Create")">Cancel</a>
+                                </div>
+                             
+                                <div class="form-group col-md-3">
+                                     <button type="button" class="btn btn-lg btn-default btn-block" id="btnPark">Park</button>
+                                </div> 
+                                <div class="form-group col-md-3">
+                                     <button type="button" class="btn btn-lg btn-primary btn-block" id="btnSubmit">Submit</button> 
+                                </div>   
+                                <div class="form-group col-md-1"></div>  
+                            </div>
+                         }  
+                     }
+
+                 }
+
+            </div>
+        </div>
+
+
+        @if (!editable)
+        {
+            <div class="panel panel-default chat">
+			    <div class="panel-heading">
+				    <span>Comments</span><span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
+			    </div>
+			    <div class="panel-body">
+				    <ul style="list-style-type: none;">
+					    <li class="right clearfix">
+						    <div class="chat-body clearfix">
+							    <div class="header"><strong class="pull-left primary-font">Jap Ventanilla</strong> <small class="text-muted">30 mins ago</small></div>
+							    <p>Request created.</p>
+						    </div>
+					    </li>
+                        <li class="right clearfix">
+						    <div class="chat-body clearfix">
+							    <div class="header"><strong class="pull-left primary-font">Anne Ventanilla</strong> <small class="text-muted">16 mins ago</small></div>
+							    <p>Request Approved.</p>
+						    </div>
+					    </li>
+                        <li class="right clearfix">
+						    <div class="chat-body clearfix">
+							    <div class="header"><strong class="pull-left primary-font">Jacob Torio</strong> <small class="text-muted">6 mins ago</small></div>
+							    <p>Request Rejected. Incomplete information.</p>
+						    </div>
+					    </li>
+				    </ul>
+			    </div>
+			    <div class="panel-footer">
+				    <div class="input-group">
+					    <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..."><span class="input-group-btn">
+						    <button class="btn btn-primary btn-md" id="btn-chat">Send</button>
+				    </span></div>
+			    </div>
+		    </div>
+        }
+        
+
+    </div>
+</div>
+
+@section AdditionalScript{
+    
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+            jQuery('#btnPark').click(function () {
+                jQuery('#SubmitType').val('park');
+                jQuery('form').submit();
+            });
+
+            jQuery('#btnSubmit').click(function () {
+                var r = confirm("Are you sure you want to submit this order?");
+                if (r == true) {
+                    jQuery('#SubmitType').val('submit');
+                    jQuery('form').submit();
+               }
+            });
+
+        });
+    </script>
+
+}
