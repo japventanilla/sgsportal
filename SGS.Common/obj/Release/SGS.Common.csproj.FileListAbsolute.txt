@@ -1,0 +1,15 @@
+D:\Files\SGSPortal\Project\SGS.Common\bin\Release\SGS.Common.dll
+D:\Files\SGSPortal\Project\SGS.Common\bin\Release\SGS.Common.pdb
+D:\Files\SGSPortal\Project\SGS.Common\bin\Release\ephtmltopdf.dll
+D:\Files\SGSPortal\Project\SGS.Common\bin\Release\ephtmltopdf.xml
+D:\Files\SGSPortal\Project\SGS.Common\obj\Release\SGS.Common.csprojResolveAssemblyReference.cache
+D:\Files\SGSPortal\Project\SGS.Common\obj\Release\SGS.Common.dll
+D:\Files\SGSPortal\Project\SGS.Common\obj\Release\SGS.Common.pdb
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Common\bin\Release\SGS.Common.dll
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Common\bin\Release\SGS.Common.pdb
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Common\bin\Release\ephtmltopdf.xml
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Common\obj\Release\SGS.Common.csprojAssemblyReference.cache
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Common\obj\Release\SGS.Common.csproj.CoreCompileInputs.cache
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Common\obj\Release\SGS.Common.csproj.CopyComplete
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Common\obj\Release\SGS.Common.dll
+C:\Projects\Personal\Others\SGSPortal\Project\SGS.Common\obj\Release\SGS.Common.pdb

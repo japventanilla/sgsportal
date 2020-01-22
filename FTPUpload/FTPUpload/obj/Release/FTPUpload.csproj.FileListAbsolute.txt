@@ -1,0 +1,5 @@
+D:\Files\SGSPortal\Project\FTPUpload\FTPUpload\bin\FTPUpload.dll
+D:\Files\SGSPortal\Project\FTPUpload\FTPUpload\bin\FTPUpload.pdb
+D:\Files\SGSPortal\Project\FTPUpload\FTPUpload\obj\Release\FTPUpload.csprojResolveAssemblyReference.cache
+D:\Files\SGSPortal\Project\FTPUpload\FTPUpload\obj\Release\FTPUpload.dll
+D:\Files\SGSPortal\Project\FTPUpload\FTPUpload\obj\Release\FTPUpload.pdb

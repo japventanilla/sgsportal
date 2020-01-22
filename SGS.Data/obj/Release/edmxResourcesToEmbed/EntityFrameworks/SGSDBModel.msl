@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SGSDBModelStoreContainer" CdmEntityContainer="SGSDBEntities">
+    <EntitySetMapping Name="Approvals">
+      <EntityTypeMapping TypeName="SGSDBModel.Approval">
+        <MappingFragment StoreEntitySet="Approvals">
+          <ScalarProperty Name="ApprovalId" ColumnName="ApprovalId" />
+          <ScalarProperty Name="ApprovalType" ColumnName="ApprovalType" />
+          <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+          <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+          <ScalarProperty Name="ApproverId" ColumnName="ApproverId" />
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+          <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Posts">
+      <EntityTypeMapping TypeName="SGSDBModel.Post">
+        <MappingFragment StoreEntitySet="Posts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Parent" ColumnName="Parent" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requests">
+      <EntityTypeMapping TypeName="SGSDBModel.Request">
+        <MappingFragment StoreEntitySet="Requests">
+          <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+          <ScalarProperty Name="RequestTypeId" ColumnName="RequestTypeId" />
+          <ScalarProperty Name="RequestNo" ColumnName="RequestNo" />
+          <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+          <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+          <ScalarProperty Name="ProcessedBy" ColumnName="ProcessedBy" />
+          <ScalarProperty Name="ProcessedDate" ColumnName="ProcessedDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="HasAttachment" ColumnName="HasAttachment" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="RecState" ColumnName="RecState" />
+          <ScalarProperty Name="Reimb_Desc" ColumnName="Reimb_Desc" />
+          <ScalarProperty Name="Reimb_Amt" ColumnName="Reimb_Amt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestTypes">
+      <EntityTypeMapping TypeName="SGSDBModel.RequestType">
+        <MappingFragment StoreEntitySet="RequestTypes">
+          <ScalarProperty Name="RequestTypeId" ColumnName="RequestTypeId" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Approvers" ColumnName="Approvers" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="SGSDBModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+          <ScalarProperty Name="Display" ColumnName="Display" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="SGSDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
+          <ScalarProperty Name="PresentAddress" ColumnName="PresentAddress" />
+          <ScalarProperty Name="ProvincialAddress" ColumnName="ProvincialAddress" />
+          <ScalarProperty Name="LandlineNo" ColumnName="LandlineNo" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="Ref_Name" ColumnName="Ref_Name" />
+          <ScalarProperty Name="Ref_Address" ColumnName="Ref_Address" />
+          <ScalarProperty Name="Ref_Relationship" ColumnName="Ref_Relationship" />
+          <ScalarProperty Name="Ref_ContactNo" ColumnName="Ref_ContactNo" />
+          <ScalarProperty Name="TaxIdNo" ColumnName="TaxIdNo" />
+          <ScalarProperty Name="SSSNo" ColumnName="SSSNo" />
+          <ScalarProperty Name="HDMFNo" ColumnName="HDMFNo" />
+          <ScalarProperty Name="PhilHealthNo" ColumnName="PhilHealthNo" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EmploymentType" ColumnName="EmploymentType" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Client" ColumnName="Client" />
+          <ScalarProperty Name="DateHired" ColumnName="DateHired" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="RecState" ColumnName="RecState" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetApprovals" FunctionName="SGSDBModel.Store.GetApprovals">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SGSDBModel.GetApprovals_Result">
+          <ScalarProperty Name="ApprovalId" ColumnName="ApprovalId" />
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="SubmittedBy" ColumnName="SubmittedBy" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="ApproverId" ColumnName="ApproverId" />
+          <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="ApprovedStatus" ColumnName="ApprovedStatus" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetRequests" FunctionName="SGSDBModel.Store.GetRequests">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SGSDBModel.GetRequests_Result">
+          <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+          <ScalarProperty Name="RequestTypeCode" ColumnName="RequestTypeCode" />
+          <ScalarProperty Name="RequestTypeDisplay" ColumnName="RequestTypeDisplay" />
+          <ScalarProperty Name="RequestNo" ColumnName="RequestNo" />
+          <ScalarProperty Name="RequestedById" ColumnName="RequestedById" />
+          <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+          <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+          <ScalarProperty Name="ProcessedBy" ColumnName="ProcessedBy" />
+          <ScalarProperty Name="ProcessedDate" ColumnName="ProcessedDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="HasAttachment" ColumnName="HasAttachment" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="RecState" ColumnName="RecState" />
+          <ScalarProperty Name="Reimb_Desc" ColumnName="Reimb_Desc" />
+          <ScalarProperty Name="Reimb_Amt" ColumnName="Reimb_Amt" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Settings">
+      <EntityTypeMapping TypeName="SGSDBModel.Setting">
+        <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="SGSDBModel.Client">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="RecState" ColumnName="RecState" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="GovtRemitDeductCutOff" ColumnName="GovtRemitDeductCutOff" />
+          <ScalarProperty Name="CutOffs" ColumnName="CutOffs" />
+          <ScalarProperty Name="SeparationPay" ColumnName="SeparationPay" />
+          <ScalarProperty Name="GovtRemitType" ColumnName="GovtRemitType" />
+          <ScalarProperty Name="AgencyFee" ColumnName="AgencyFee" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeSheets">
+      <EntityTypeMapping TypeName="SGSDBModel.TimeSheet">
+        <MappingFragment StoreEntitySet="TimeSheets">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="PagibigLoan" ColumnName="PagibigLoan" />
+          <ScalarProperty Name="SSSLoan" ColumnName="SSSLoan" />
+          <ScalarProperty Name="Adjustment" ColumnName="Adjustment" />
+          <ScalarProperty Name="Allowance" ColumnName="Allowance" />
+          <ScalarProperty Name="Late" ColumnName="Late" />
+          <ScalarProperty Name="NightDiff" ColumnName="NightDiff" />
+          <ScalarProperty Name="ExcessOfRestDayOT" ColumnName="ExcessOfRestDayOT" />
+          <ScalarProperty Name="RestDayOT" ColumnName="RestDayOT" />
+          <ScalarProperty Name="AuthorizedOT" ColumnName="AuthorizedOT" />
+          <ScalarProperty Name="ExcessOfSpecialHolidayOT" ColumnName="ExcessOfSpecialHolidayOT" />
+          <ScalarProperty Name="SpecialHolidayNotWorked" ColumnName="SpecialHolidayNotWorked" />
+          <ScalarProperty Name="SpecialHolidayOT" ColumnName="SpecialHolidayOT" />
+          <ScalarProperty Name="ExcessOfLegalHolidayOT" ColumnName="ExcessOfLegalHolidayOT" />
+          <ScalarProperty Name="LegalHolidayNotWorked" ColumnName="LegalHolidayNotWorked" />
+          <ScalarProperty Name="LegalHolidayOT" ColumnName="LegalHolidayOT" />
+          <ScalarProperty Name="RegularHours" ColumnName="RegularHours" />
+          <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+          <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
+          <ScalarProperty Name="WorkDate" ColumnName="WorkDate" />
+          <ScalarProperty Name="Client" ColumnName="Client" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="BasicRate" ColumnName="BasicRate" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
